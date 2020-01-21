@@ -20,13 +20,13 @@ variable "apply_immediately" {
 }
 
 variable "allowed_cidr" {
-  type        = "list"
+  type        = list(string)
   default     = ["127.0.0.1/32"]
   description = "A list of Security Group ID's to allow access to."
 }
 
 variable "allowed_security_groups" {
-  type        = "list"
+  type        = list(string)
   default     = []
   description = "A list of Security Group ID's to allow access to."
 }
@@ -38,6 +38,7 @@ variable "env" {
 variable "name" {
   description = "Name for the Redis replication group i.e. UserObject"
 }
+
 variable "redis_clusters" {
   description = "Number of Redis cache clusters (nodes) to create"
 }
@@ -51,19 +52,22 @@ variable "redis_node_type" {
   default     = "cache.m3.medium"
 }
 
-variable "redis_port" { default = 6379 }
+variable "redis_port" {
+  default = 6379
+}
 
 variable "subnets" {
-  type        = "list"
+  type        = list(string)
   description = "List of VPC Subnet IDs for the cache subnet group"
 }
 
 # might want a map
 variable "redis_version" {
   description = "Redis version to use, defaults to 3.2.4"
-  default = "3.2.4"
+  default     = "3.2.4"
 }
 
 variable "vpc_id" {
   description = "VPC ID"
 }
+

@@ -1,3 +1,6 @@
 # Compiled files
 *.tfstate
 *.tfstate.backup
+.terraform
+.cache
+__pycache__
