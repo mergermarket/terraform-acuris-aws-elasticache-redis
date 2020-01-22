@@ -54,6 +54,6 @@ class TestCreateTaskdef(unittest.TestCase):
         resource_changes = self.get_resource_changes()
 
         # Then
-        assert len(resource_changes) == 4
-        self.assert_resource_changes_action(resource_changes, 'create', 4)
-        self.assert_resource_changes('create_lambda', resource_changes)
+        assert len(resource_changes) == 6
+        self.assert_resource_changes_action(resource_changes, 'create', 6)
+        self.assert_resource_changes('create_redis', resource_changes)

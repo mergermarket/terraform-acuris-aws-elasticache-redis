@@ -1,5 +1,11 @@
+
+terraform {
+  required_version = ">= 0.12"
+}
+
 module "redis" {
   source                  = "../.."
+  is_test                 = true
 
   env                     = var.env
   name                    = "${var.env}-mergermarket"
@@ -29,7 +35,6 @@ provider "aws" {
 variable "env" {}
 
 variable "platform_config" {
-  type = "map"
 }
 
 variable "aws_account_alias" {}

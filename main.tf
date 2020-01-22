@@ -1,10 +1,16 @@
 data "aws_vpc" "vpc" {
+  count = var.is_test ? 0 : 1
   id = "${var.vpc_id}"
+}
+
+locals {
+  vpc_tags    = var.is_test ? "" : data.aws_vpc.vpc.*.tags["Name"]
+  vpc_id      = element(concat(data.aws_vpc.vpc.*.id, [""]),0,)
 }
 
 resource "aws_elasticache_replication_group" "redis" {
   replication_group_id          = replace(format("%.20s", "${var.name}-${var.env}"), "/\\W+$/", "")
-  replication_group_description = "Terraform-managed ElastiCache replication group for ${var.name}-${data.aws_vpc.vpc.tags["Name"]}"
+  replication_group_description = "Terraform-managed ElastiCache replication group for ${var.name}-${local.vpc_tags}"
   number_cache_clusters         = var.redis_clusters
   node_type                     = var.redis_node_type
   automatic_failover_enabled    = var.redis_failover
@@ -22,7 +28,7 @@ resource "aws_elasticache_parameter_group" "redis_parameter_group" {
       "%.255s",
       lower(
         replace(
-          "tf-redis-${var.name}-${data.aws_vpc.vpc.tags["Name"]}",
+          "tf-redis-${var.name}-${local.vpc_tags}",
           "_",
           "-",
         ),
@@ -31,7 +37,7 @@ resource "aws_elasticache_parameter_group" "redis_parameter_group" {
     "/\\s/",
     "-",
   )
-  description = "Terraform-managed ElastiCache parameter group for ${var.name}-${data.aws_vpc.vpc.tags["Name"]}"
+  description = "Terraform-managed ElastiCache parameter group for ${var.name}-${local.vpc_tags}"
   family      = "redis${replace(var.redis_version, "/\\.[\\d]+$/", "")}" # Strip the patch version from redis_version var
 }
 
@@ -41,7 +47,7 @@ resource "aws_elasticache_subnet_group" "redis_subnet_group" {
       "%.255s",
       lower(
         replace(
-          "tf-redis-${var.name}-${data.aws_vpc.vpc.tags["Name"]}",
+          "tf-redis-${var.name}-${local.vpc_tags}",
           "_",
           "-",
         ),
