@@ -4,8 +4,8 @@ data "aws_vpc" "vpc" {
 }
 
 locals {
-  vpc_tags    = var.is_test ? "" : data.aws_vpc.vpc.*.tags["Name"]
-  vpc_id      = element(concat(data.aws_vpc.vpc.*.id, [""]),0,)
+  vpc_tags    = var.is_test ? "" : data.aws_vpc.vpc[0].tags["Name"]
+  vpc_id      = var.vpc_id
 }
 
 resource "aws_elasticache_replication_group" "redis" {
