@@ -20,6 +20,7 @@ resource "aws_elasticache_replication_group" "redis" {
   subnet_group_name             = aws_elasticache_subnet_group.redis_subnet_group.id
   security_group_ids            = [aws_security_group.redis_security_group.id]
   apply_immediately             = var.apply_immediately
+  tags                          = var.tags
 }
 
 resource "aws_elasticache_parameter_group" "redis_parameter_group" {

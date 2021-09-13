@@ -74,3 +74,9 @@ variable "vpc_id" {
 variable "is_test" {
   default       = false
 }
+
+variable "tags" {
+  description   = "Tags wil be apllied to redis cluster tags property"
+  type          = map(string)
+  default       = null
+}
