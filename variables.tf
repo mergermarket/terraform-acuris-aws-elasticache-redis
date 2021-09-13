@@ -80,3 +80,9 @@ variable "tags" {
   type          = map(string)
   default       = null
 }
+
+variable "multi_az_enabled" {
+  description   = "Sets multi az attribute for redis cluster"
+  type          = bool
+  default       = false
+}
