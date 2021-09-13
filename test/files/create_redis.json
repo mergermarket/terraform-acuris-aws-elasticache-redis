@@ -49,7 +49,6 @@
                             "schema_version": 1,
                             "values": {
                                 "apply_immediately": false,
-                                "at_rest_encryption_enabled": false,
                                 "auth_token": null,
                                 "auto_minor_version_upgrade": true,
                                 "automatic_failover_enabled": false,
@@ -191,14 +190,15 @@
                 "before": null,
                 "after": {
                     "apply_immediately": false,
-                    "at_rest_encryption_enabled": false,
                     "auth_token": null,
                     "auto_minor_version_upgrade": true,
                     "automatic_failover_enabled": false,
                     "availability_zones": null,
                     "engine": "redis",
                     "engine_version": "3.2.4",
+                    "final_snapshot_identifier": null,
                     "kms_key_id": null,
+                    "multi_az_enabled": false,
                     "node_type": "cache.t2.micro",
                     "notification_topic_arn": null,
                     "number_cache_clusters": 2,
@@ -209,21 +209,26 @@
                     "snapshot_name": null,
                     "snapshot_retention_limit": null,
                     "tags": null,
-                    "timeouts": null,
-                    "transit_encryption_enabled": false
+                    "timeouts": null
                 },
                 "after_unknown": {
+                    "arn": true, 
+                    "at_rest_encryption_enabled": true,
+                    "cluster_enabled": true,
                     "cluster_mode": true,
                     "configuration_endpoint_address": true,
+                    "global_replication_group_id": true,
                     "id": true,
                     "maintenance_window": true,
                     "member_clusters": true,
                     "parameter_group_name": true,
                     "primary_endpoint_address": true,
+                    "reader_endpoint_address": true,
                     "security_group_ids": true,
                     "security_group_names": true,
                     "snapshot_window": true,
-                    "subnet_group_name": true
+                    "subnet_group_name": true,
+                    "transit_encryption_enabled": true
                 }
             }
         },
@@ -269,21 +274,21 @@
                 "after": {
                     "description": "Terraform-managed ElastiCache security group for dev-mergermarket-",
                     "name": "tf-sg-ec-dev-mergermarket-",
-                    "name_prefix": null,
                     "revoke_rules_on_delete": false,
                     "tags": {
                         "Name": "tf-sg-ec-dev-mergermarket-"
                     },
-                    "timeouts": null
+                    "timeouts": null,
+                    "vpc_id": "vpc-12345678"
                 },
                 "after_unknown": {
                     "arn": true,
                     "egress": true,
                     "id": true,
                     "ingress": true,
+                    "name_prefix": true,
                     "owner_id": true,
-                    "tags": {},
-                    "vpc_id": true
+                    "tags": {}
                 }
             }
         },
