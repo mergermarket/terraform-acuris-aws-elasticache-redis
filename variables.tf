@@ -80,3 +80,8 @@ variable "tags" {
   type          = map(string)
   default       = null
 }
+
+variable "multi_az_enabled" {
+  description = "Redis cluster multi az support (redis_failover should be true)"
+  default       = false
+}
