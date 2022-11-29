@@ -49,7 +49,7 @@ resource "aws_elasticache_subnet_group" "redis_subnet_group" {
       "%.255s",
       lower(
         replace(
-          "tf-redis-${var.name}-${local.vpc_tags}",
+          "tf-redis-${var.name}-${var.env}-${local.vpc_tags}",
           "_",
           "-",
         ),
