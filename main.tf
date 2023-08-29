@@ -8,6 +8,16 @@ locals {
   vpc_id      = var.vpc_id
 }
 
+resource "aws_cloudwatch_log_group" "slow_log_group" {
+  name              = "${var.name}-slow-log"
+  retention_in_days = 10
+}
+
+resource "aws_cloudwatch_log_group" "engine_log_group" {
+  name              = "${var.name}-engine-log"
+  retention_in_days = 10
+}
+
 resource "aws_elasticache_replication_group" "redis" {
   replication_group_id          = replace(format("%.20s", "${var.name}-${var.env}"), "/\\W+$/", "")
   description                   = "Terraform-managed ElastiCache replication group for ${var.name}-${local.vpc_tags}"
@@ -22,6 +32,19 @@ resource "aws_elasticache_replication_group" "redis" {
   apply_immediately             = var.apply_immediately
   tags                          = var.tags
   multi_az_enabled              = var.multi_az_enabled
+
+  log_delivery_configuration {
+    destination      = aws_cloudwatch_log_group.slow_log_group.name
+    destination_type = "cloudwatch-logs"
+    log_format       = "json"
+    log_type         = "slow-log"
+  }
+  log_delivery_configuration {
+    destination      = aws_cloudwatch_log_group.engine_log_group.name
+    destination_type = "cloudwatch-logs"
+    log_format       = "json"
+    log_type         = "engine-log"
+  }
 }
 
 resource "aws_elasticache_parameter_group" "redis_parameter_group" {
