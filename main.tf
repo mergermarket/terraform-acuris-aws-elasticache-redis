@@ -10,7 +10,7 @@ locals {
 
 resource "aws_elasticache_replication_group" "redis" {
   lifecycle {
-    prevent_destroy = $var.prevent_destroy
+    prevent_destroy = var.prevent_destroy
   }
   replication_group_id          = replace(format("%.20s", "${var.name}-${var.env}"), "/\\W+$/", "")
   description                   = "Terraform-managed ElastiCache replication group for ${var.name}-${local.vpc_tags}"
