@@ -26,7 +26,6 @@ This module
 - `redis_node_type` - "Instance type to use for creating the Redis cache clusters Defaults to cache.m3.medium"
 - `redis_port` - "Defaults to 6379"
 - `redis_version` - "Redis version to use, defaults to 3.2.4"
-- `prevent_destroy` - "Boolean flag to prevent the destruction of the resource. Defaults to false"
 
 Usage
 -----

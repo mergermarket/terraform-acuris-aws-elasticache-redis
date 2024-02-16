@@ -86,9 +86,3 @@ variable "multi_az_enabled" {
   type          = bool
   default       = false
 }
-
-variable "prevent_destroy" {
-  type = bool
-  default = false
-  description = "(optional) prevent the destruction of the resource. When destroying the resource, Terraform will fail if this is set to true."
-}
