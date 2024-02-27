@@ -22,6 +22,11 @@ resource "aws_elasticache_replication_group" "redis" {
   apply_immediately             = var.apply_immediately
   tags                          = var.tags
   multi_az_enabled              = var.multi_az_enabled
+  lifecycle {
+    ignore_changes = [ 
+      security_group_ids,
+   ]
+  }
 }
 
 resource "aws_elasticache_parameter_group" "redis_parameter_group" {
