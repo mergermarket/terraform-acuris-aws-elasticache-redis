@@ -25,6 +25,7 @@ resource "aws_elasticache_replication_group" "redis" {
   lifecycle {
     ignore_changes = [ 
       security_group_names,
+      auth_token_update_strategy,
    ]
   }
 }
