@@ -24,7 +24,7 @@ resource "aws_elasticache_replication_group" "redis" {
   multi_az_enabled              = var.multi_az_enabled
   lifecycle {
     ignore_changes = [ 
-      security_group_ids,
+      security_group_names,
    ]
   }
 }
